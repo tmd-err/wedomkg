@@ -4,7 +4,10 @@ import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import SceneLights from "./SceneLights";
 import Rig from "./Rig";
-import Funnel from "./Funnel";
+import StarField from "./StarField";
+import Nebula from "./Nebula";
+import Destinations from "./Destinations";
+import Sun from "./Sun";
 import ProjectScreens from "./ProjectScreens";
 import TrustOrbit from "./TrustOrbit";
 
@@ -13,7 +16,7 @@ export default function MarketingScene() {
     <div className="scene-root" aria-hidden="true">
       <Canvas
         dpr={[1, 1.75]}
-        camera={{ fov: 44, position: [0, 0.15, 8.5], near: 0.1, far: 70 }}
+        camera={{ fov: 44, position: [0, 0.15, 8.5], near: 0.1, far: 110 }}
         gl={{
           antialias: true,
           alpha: true,
@@ -23,11 +26,14 @@ export default function MarketingScene() {
           window.dispatchEvent(new Event("wedomkg:scene-ready"));
         }}
       >
-        <fog attach="fog" args={["#0a0908", 10, 44]} />
+        <fog attach="fog" args={["#060910", 16, 64]} />
         <Suspense fallback={null}>
           <SceneLights />
           <Rig />
-          <Funnel />
+          <StarField />
+          <Nebula />
+          <Destinations />
+          <Sun />
           <ProjectScreens />
           <TrustOrbit />
         </Suspense>

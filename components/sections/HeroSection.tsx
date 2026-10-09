@@ -17,6 +17,7 @@ export default function HeroSection({ dict }: { dict: Dict }) {
       id="top"
       className="section-pad relative flex min-h-[100svh] flex-col items-center justify-center text-center"
       aria-label="We Do Marketing"
+      data-band="hero"
     >
       <p className="kicker mb-6" data-reveal="up">
         {dict.kicker}

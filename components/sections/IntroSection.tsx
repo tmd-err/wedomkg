@@ -18,7 +18,10 @@ export default function IntroSection({
   lang: Locale;
 }) {
   return (
-    <section className="section-pad relative flex min-h-[130vh] flex-col justify-center py-24">
+    <section
+      className="section-pad relative flex min-h-[130vh] flex-col justify-center py-24"
+      data-band="intro"
+    >
       <div className="grid items-center gap-10 sm:gap-14 lg:grid-cols-2 lg:gap-16">
         <figure
           className="order-2 border border-line bg-ink lg:order-1"

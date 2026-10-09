@@ -56,11 +56,15 @@ export default function Experience({ children, preloader }: Props) {
         .toArray<HTMLElement>("[data-band]")
         .forEach((el) => {
           const name = el.dataset.band as
+            | "hero"
+            | "intro"
+            | "about"
             | "services"
             | "works"
             | "trust"
             | "process"
-            | "industries";
+            | "industries"
+            | "contact";
           ScrollTrigger.create({
             trigger: el,
             start: "top bottom",

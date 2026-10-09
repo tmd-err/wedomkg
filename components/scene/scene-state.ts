@@ -10,19 +10,26 @@ export const sceneState = {
   /** Normalized pointer position, -1..1 */
   pointer: { x: 0, y: 0 },
   /** Per-section local progress, 0..1 while the section crosses the viewport */
+  hero: 0,
+  intro: 0,
+  about: 0,
   services: 0,
   process: 0,
   works: 0,
   trust: 0,
   industries: 0,
+  contact: 0,
   /**
    * Continuous row focus, driven by each list's scroll position:
    * integer part = row index, fractional part = progress through the row.
    */
   serviceFocus: 0,
   workFocus: 0,
-  /** Current z-offset of the funnel tunnel (written by Funnel each frame). */
-  funnelZ: 0,
+  /**
+   * Where the camera should gaze — Destinations writes the position of the
+   * planet currently owning the stage; w fades with its visibility.
+   */
+  focus: { x: 0, y: 0, z: -8, w: 0 },
   reducedMotion: false,
 };
 

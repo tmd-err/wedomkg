@@ -1,10 +1,11 @@
 export default function SceneLights() {
   return (
     <>
-      <ambientLight intensity={0.55} color="#f4efe4" />
-      <directionalLight position={[4, 6, 6]} intensity={0.7} color="#fff6e6" />
-      <pointLight position={[-6, -3, 4]} intensity={14} color="#f5a81c" distance={18} decay={2} />
-      <pointLight position={[6, 4, -4]} intensity={8} color="#3a5f8a" distance={20} decay={2} />
+      {/* cool void ambient + warm key from the sun side */}
+      <ambientLight intensity={0.35} color="#8fa3c8" />
+      <directionalLight position={[5, 4, 6]} intensity={0.8} color="#fff0d8" />
+      <pointLight position={[-6, -3, 4]} intensity={10} color="#f5a81c" distance={18} decay={2} />
+      <pointLight position={[6, 4, -8]} intensity={9} color="#3a6fd8" distance={26} decay={2} />
     </>
   );
 }

@@ -21,6 +21,7 @@ export default function ContactSection({
     <section
       id="contact"
       className="section-pad relative flex min-h-[110vh] flex-col items-center justify-center py-28 text-center"
+      data-band="contact"
     >
       <div
         aria-hidden="true"
