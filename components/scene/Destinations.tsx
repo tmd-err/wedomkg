@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import Planet, { PlanetPalette } from "./Planet";
+import OrbitDust from "./OrbitDust";
 import { band, sceneState, smooth } from "./scene-state";
 
 type BandName =
@@ -161,6 +162,7 @@ const SPECS: Spec[] = [
 ];
 
 const SERVICE_MOON_COLORS = ["#f0a860", "#4a9fff", "#5fd49a", "#b49aff"];
+const ATMO_COLORS = SPECS.map((s) => new THREE.Color(s.palette.atmosphere));
 
 /**
  * The planetary system: every section owns a planet that travels from a
@@ -172,6 +174,7 @@ export default function Destinations() {
   const moonsRef = useRef<THREE.Group>(null);
   const moonMeshes = useRef<(THREE.Mesh | null)[]>([]);
   const moonMats = useRef<(THREE.MeshStandardMaterial | null)[]>([]);
+  const focusLight = useRef<THREE.PointLight>(null);
 
   useFrame(({ clock, size }) => {
     const t = clock.elapsedTime;
@@ -184,6 +187,7 @@ export default function Destinations() {
     let focusY = 0;
     let focusZ = -8;
     let focusW = 0;
+    let focusI = -1;
 
     SPECS.forEach((spec, i) => {
       const g = groups.current[i];
@@ -208,11 +212,25 @@ export default function Destinations() {
       const vis = Math.min(1, arrive * 1.15) * fade;
       if (vis > focusW) {
         focusW = vis;
+        focusI = i;
         focusX = g.position.x;
         focusY = g.position.y;
         focusZ = g.position.z;
       }
     });
+
+    // Environmental light: the stage takes on the active world's atmosphere
+    // tint, so each arrival relights the void around it.
+    const fl = focusLight.current;
+    if (fl) {
+      if (focusI >= 0 && focusW > 0.05) {
+        fl.position.set(focusX, focusY, focusZ + 2);
+        fl.color.lerp(ATMO_COLORS[focusI], 0.06);
+        fl.intensity += (focusW * 7 - fl.intensity) * 0.08;
+      } else {
+        fl.intensity *= 0.95;
+      }
+    }
 
     const f = s.focus;
     const ease = 0.08;
@@ -275,8 +293,17 @@ export default function Destinations() {
             ring={spec.ring}
             moon={spec.moon}
           />
+          <OrbitDust
+            radius={spec.radius}
+            color={spec.palette.atmosphere}
+            band={spec.band}
+            seed={spec.seed}
+          />
         </group>
       ))}
+
+      {/* focus light — takes the active planet's atmosphere color */}
+      <pointLight ref={focusLight} intensity={0} distance={26} decay={2} />
 
       {/* the services planetary system — one moon per discipline */}
       <group ref={moonsRef}>

@@ -79,9 +79,13 @@ void main(){
 const ATMO_FRAG = /* glsl */ `
 varying vec3 vNormal;
 uniform float uOpacity;
+uniform float uCool;
 void main(){
   float i = pow(0.72 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.6);
-  vec3 glow = mix(vec3(1.0, 0.35, 0.04), vec3(1.0, 0.75, 0.3), i);
+  vec3 warm = mix(vec3(1.0, 0.35, 0.04), vec3(1.0, 0.75, 0.3), i);
+  // settled: the rim cools toward cyan — sunrise over the destination
+  vec3 cool = mix(vec3(0.12, 0.45, 0.75), vec3(0.55, 0.85, 1.0), i);
+  vec3 glow = mix(warm, cool, uCool);
   gl_FragColor = vec4(glow, 1.0) * i * uOpacity;
 }
 `;
@@ -99,7 +103,14 @@ export default function Sun() {
   const glowMat = useRef<THREE.SpriteMaterial>(null);
   const haloMat = useRef<THREE.SpriteMaterial>(null);
 
-  const uniforms = useMemo(() => ({ uTime: { value: 0 }, uOpacity: { value: 1 } }), []);
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uOpacity: { value: 1 },
+      uCool: { value: 0 },
+    }),
+    [],
+  );
   const glowTex = useMemo(() => makeGlowTexture(), []);
   const dotTex = useMemo(() => makeDotTexture(), []);
 
@@ -125,19 +136,26 @@ export default function Sun() {
     // Arrival follows the contact band, not global progress — the sun
     // approaches and swells exactly while the contact section is on stage.
     const arrival = smooth(band(sceneState.contact, 0.08, 0.75));
+    // Settle: near the end of the band the scene calms — plasma slows, the
+    // sun sinks into a horizon composition, its rim cools toward cyan.
+    const settle = smooth(band(sceneState.contact, 0.72, 1.0));
     const spin = reduced ? 0.3 : 1;
 
-    if (sunMat.current) sunMat.current.uniforms.uTime.value = t;
+    if (sunMat.current) {
+      sunMat.current.uniforms.uTime.value = t * (1 - settle * 0.4);
+    }
     if (atmoMat.current) {
-      atmoMat.current.uniforms.uTime.value = t;
       atmoMat.current.uniforms.uOpacity.value = 0.5 + arrival * 0.5;
+      atmoMat.current.uniforms.uCool.value = settle * 0.55;
     }
 
     const g = group.current;
     if (g) {
       g.position.z = THREE.MathUtils.lerp(FAR_Z, NEAR_Z, arrival);
-      g.scale.setScalar(0.55 + arrival * 2.6);
-      g.rotation.y = t * 0.05 * spin;
+      // sinks to a horizon arc as it arrives — the "final destination" frame
+      g.position.y = THREE.MathUtils.lerp(0, -2.0, arrival);
+      g.scale.setScalar(0.55 + arrival * 3.1);
+      g.rotation.y = t * 0.05 * spin * (1 - settle * 0.5);
     }
 
     const pulse = reduced ? 0 : Math.sin(t * 1.8);
@@ -148,7 +166,7 @@ export default function Sun() {
       haloMat.current.opacity = 0.06 + arrival * 0.32 + 0.05 * Math.max(0, -pulse);
     }
     if (coronaMat.current) {
-      coronaMat.current.opacity = 0.25 + arrival * 0.75;
+      coronaMat.current.opacity = (0.25 + arrival * 0.75) * (1 - settle * 0.35);
     }
 
     const posAttr = coronaGeo.current?.getAttribute(

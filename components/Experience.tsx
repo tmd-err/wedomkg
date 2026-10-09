@@ -40,6 +40,7 @@ export default function Experience({ children, preloader }: Props) {
       gsap.ticker.lagSmoothing(0);
     }
 
+    const rowListeners: { el: HTMLElement; on: () => void; off: () => void }[] = [];
     const ctx = gsap.context(() => {
       // Global scroll progress drives the whole scene state.
       ScrollTrigger.create({
@@ -84,11 +85,14 @@ export default function Experience({ children, preloader }: Props) {
       const intro: { el: HTMLElement; from: gsap.TweenVars }[] = [];
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
         const dir = el.dataset.reveal || "up";
-        const from: gsap.TweenVars = { opacity: 0, x: 0, y: 0 };
+        const from: gsap.TweenVars = { opacity: 0, x: 0, y: 0, scale: 1 };
         if (dir === "down") from.y = 60 * m;
         else if (dir === "left") from.x = -90 * m;
         else if (dir === "right") from.x = 90 * m;
-        else from.y = -60 * m;
+        else if (dir === "zoom") {
+          from.y = 30 * m;
+          from.scale = 0.92;
+        } else from.y = -60 * m;
 
         if (el.getBoundingClientRect().top < window.innerHeight * 0.96) {
           gsap.set(el, from);
@@ -99,6 +103,7 @@ export default function Experience({ children, preloader }: Props) {
         gsap.fromTo(el, from, {
           x: 0,
           y: 0,
+          scale: 1,
           opacity: 1,
           ease: "none",
           scrollTrigger: {
@@ -118,6 +123,7 @@ export default function Experience({ children, preloader }: Props) {
           gsap.fromTo(el, from, {
             x: 0,
             y: 0,
+            scale: 1,
             opacity: 1,
             duration: 1.05,
             ease: "power3.out",
@@ -208,13 +214,26 @@ export default function Experience({ children, preloader }: Props) {
       }
 
       // Active state on portfolio rows as they pass the centre.
-      gsap.utils.toArray<HTMLElement>("[data-work-row]").forEach((el) => {
+      gsap.utils.toArray<HTMLElement>("[data-work-row]").forEach((el, i) => {
         ScrollTrigger.create({
           trigger: el,
           start: "top 68%",
           end: "bottom 42%",
           toggleClass: { targets: el, className: "is-active" },
         });
+        // Row interaction lights the matching portal — pointerenter covers
+        // mouse and touch tap, focusin covers keyboard navigation.
+        const on = () => {
+          sceneState.workHover = i;
+        };
+        const off = () => {
+          if (sceneState.workHover === i) sceneState.workHover = -1;
+        };
+        el.addEventListener("pointerenter", on);
+        el.addEventListener("pointerleave", off);
+        el.addEventListener("focusin", on);
+        el.addEventListener("focusout", off);
+        rowListeners.push({ el, on, off });
       });
 
       // Continuous focus values for scene choreography: data-focus="services|works"
@@ -254,6 +273,12 @@ export default function Experience({ children, preloader }: Props) {
 
     return () => {
       ctx.revert();
+      rowListeners.forEach(({ el, on, off }) => {
+        el.removeEventListener("pointerenter", on);
+        el.removeEventListener("pointerleave", off);
+        el.removeEventListener("focusin", on);
+        el.removeEventListener("focusout", off);
+      });
       lenis?.destroy();
       if (tickerFn) gsap.ticker.remove(tickerFn);
       window.removeEventListener("pointermove", onPointer);

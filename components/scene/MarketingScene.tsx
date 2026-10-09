@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import SceneLights from "./SceneLights";
 import Rig from "./Rig";
 import StarField from "./StarField";
+import Dust from "./Dust";
 import Nebula from "./Nebula";
 import Destinations from "./Destinations";
 import Sun from "./Sun";
@@ -31,6 +32,7 @@ export default function MarketingScene() {
           <SceneLights />
           <Rig />
           <StarField />
+          <Dust />
           <Nebula />
           <Destinations />
           <Sun />

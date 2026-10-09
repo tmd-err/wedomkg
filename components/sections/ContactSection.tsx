@@ -28,7 +28,7 @@ export default function ContactSection({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 46% at 50% 50%, rgba(10,9,8,0.82) 0%, rgba(10,9,8,0.42) 55%, transparent 78%)",
+            "radial-gradient(ellipse 64% 42% at 50% 40%, rgba(10,9,8,0.8) 0%, rgba(10,9,8,0.38) 55%, transparent 76%)",
         }}
       />
       <div className="relative flex flex-col items-center">
@@ -41,25 +41,28 @@ export default function ContactSection({
           <br />
           <span className="text-accent">{dict.titleLine2}</span>
         </h2>
-        <p
-          className="mt-8 max-w-md text-base leading-relaxed text-mist sm:text-lg"
-          data-reveal="up"
+        {/* glass interface — the destination console, floating over the sun */}
+        <div
+          className="mt-10 max-w-lg rounded-2xl border border-line bg-ink/35 px-7 py-9 backdrop-blur-md sm:px-12"
+          data-reveal="zoom"
         >
-          {dict.body}
-        </p>
-        <div className="mt-12 flex flex-col items-center gap-6" data-reveal="up">
-          <MagneticButton
-            href={`mailto:${email}`}
-            label={dict.cta}
-            icon={<Send size={14} aria-hidden="true" />}
-          />
-          <a
-            href={`mailto:${email}`}
-            className="inline-flex items-center gap-2 font-mono text-sm tracking-[0.12em] text-paper underline decoration-line underline-offset-8 transition-colors hover:text-accent"
-          >
-            <Mail size={14} className="text-accent" aria-hidden="true" />
-            {email}
-          </a>
+          <p className="text-base leading-relaxed text-mist sm:text-lg">
+            {dict.body}
+          </p>
+          <div className="mt-9 flex flex-col items-center gap-6">
+            <MagneticButton
+              href={`mailto:${email}`}
+              label={dict.cta}
+              icon={<Send size={14} aria-hidden="true" />}
+            />
+            <a
+              href={`mailto:${email}`}
+              className="inline-flex items-center gap-2 font-mono text-sm tracking-[0.12em] text-paper underline decoration-line underline-offset-8 transition-colors hover:text-accent"
+            >
+              <Mail size={14} className="text-accent" aria-hidden="true" />
+              {email}
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -32,7 +32,11 @@ export function makeDotTexture(): THREE.Texture {
 }
 
 /** Warm radial glow for sprites (sun halo, nebula cores). */
-export function makeGlowTexture(inner = "rgba(255,150,40,0.9)"): THREE.Texture {
+export function makeGlowTexture(
+  inner = "rgba(255,150,40,0.9)",
+  mid = "rgba(255,120,25,0.32)",
+  outer = "rgba(255,100,20,0)",
+): THREE.Texture {
   const size = 128;
   const canvas = document.createElement("canvas");
   canvas.width = size;
@@ -47,8 +51,8 @@ export function makeGlowTexture(inner = "rgba(255,150,40,0.9)"): THREE.Texture {
     size / 2,
   );
   grad.addColorStop(0, inner);
-  grad.addColorStop(0.35, "rgba(255,120,25,0.32)");
-  grad.addColorStop(1, "rgba(255,100,20,0)");
+  grad.addColorStop(0.35, mid);
+  grad.addColorStop(1, outer);
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, size, size);
   const tex = new THREE.CanvasTexture(canvas);
@@ -80,6 +84,33 @@ export function makeNebulaTexture(rgb: string): THREE.Texture {
   tex.colorSpace = THREE.SRGBColorSpace;
   return tex;
 }
+
+/**
+ * Shared GLSL for soft round points. Vertex shaders must set:
+ *   vColor — point color, vA — per-point alpha multiplier
+ * and declare attributes + uniforms they use. CURSOR_PUSH is an inline
+ * snippet displacing a world-space position away from the pointer.
+ */
+export const SOFT_DISC_FRAG = /* glsl */ `
+varying vec3 vColor;
+varying float vA;
+uniform float uOpacity;
+void main(){
+  float d = length(gl_PointCoord - vec2(0.5));
+  float a = smoothstep(0.5, 0.03, d);
+  if (a < 0.004) discard;
+  gl_FragColor = vec4(vColor, a * vA * uOpacity);
+}
+`;
+
+/* Gentle repulsion: wp is a vec4 world position; pushes particles away from
+   the cursor's world-space xy with a gaussian falloff. Requires uniforms
+   `vec2 uCursor` and `float uCursorStr`. */
+export const CURSOR_PUSH = /* glsl */ `
+vec2 curD = wp.xy - uCursor;
+float curL = max(length(curD), 1e-3);
+wp.xy += (curD / curL) * exp(-curL * curL * 0.045) * uCursorStr;
+`;
 
 /* Ashima simplex noise + fbm — shared by the sun and the planets. */
 export const SNOISE = /* glsl */ `

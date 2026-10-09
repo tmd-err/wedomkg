@@ -25,6 +25,8 @@ export const sceneState = {
    */
   serviceFocus: 0,
   workFocus: 0,
+  /** Index of the work row currently hovered/focused in the DOM, -1 none. */
+  workHover: -1,
   /**
    * Where the camera should gaze — Destinations writes the position of the
    * planet currently owning the stage; w fades with its visibility.
