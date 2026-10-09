@@ -130,7 +130,18 @@
       "E-commerce",
       "Government",
       "Startups"
-    ]
+    ],
+    "descs": [
+      "Care that finds its patients",
+      "Calm, clear, easy to reach",
+      "Science, made visible",
+      "Shops that pull people in",
+      "Tables worth booking",
+      "Stores built to sell",
+      "Services citizens can find",
+      "Ideas launched loud"
+    ],
+    "close": "Close"
   },
   "contact": {
     "label": "08 — Contact",

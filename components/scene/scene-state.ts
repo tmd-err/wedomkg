@@ -25,6 +25,8 @@ export const sceneState = {
    */
   serviceFocus: 0,
   workFocus: 0,
+  /** Continuous process-stage focus 0..3 across the four method rows. */
+  processFocus: 0,
   /** Index of the work row currently hovered/focused in the DOM, -1 none. */
   workHover: -1,
   /**

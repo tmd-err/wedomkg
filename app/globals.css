@@ -199,10 +199,576 @@ body {
   color: #fff;
 }
 
-/* ------- industry rows ------- */
+/* ------- industry planetary portals ------- */
 
-.industry-row {
-  will-change: transform;
+@property --ra {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --hs {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3.5rem 2rem;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.portal-item {
+  margin-top: var(--dy, 0);
+  transition: opacity 0.5s ease;
+}
+
+.portal-field[data-open] .portal-item {
+  opacity: 0.18;
+}
+
+.portal {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  perspective: 900px;
+}
+
+.portal-float {
+  display: block;
+  animation: portalFloat 7s ease-in-out infinite;
+  animation-delay: calc(var(--ph, 0) * 1s);
+}
+
+@keyframes portalFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* the dimensional gateway frame */
+.portal-gate {
+  position: relative;
+  display: block;
+  width: min(11.5rem, 100%);
+  aspect-ratio: 3 / 4.2;
+  margin-inline: auto;
+  border-radius: 50% 50% 14px 14px / 32% 32% 14px 14px;
+  background:
+    linear-gradient(160deg, #2b2540, #0d0b16 42%, #1d1832 80%, #0a0812),
+    #14101f;
+  box-shadow:
+    0 18px 50px -12px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -8px 20px rgba(0, 0, 0, 0.55);
+  transform-style: preserve-3d;
+  transform:
+    rotateX(calc(var(--py, 0) * -4deg))
+    rotateY(calc(var(--px, 0) * 5deg))
+    translateY(calc(var(--hs, 0) * -6px))
+    scale(calc(var(--pz, 1) + var(--hs, 0) * 0.05));
+  transition: --hs 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* energy travelling around the arch rim */
+.portal-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.portal-rim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2.5px;
+  background: conic-gradient(
+    from var(--ra),
+    transparent 0deg,
+    var(--c1, #8b7cf6) 55deg,
+    transparent 110deg,
+    transparent 185deg,
+    var(--c2, var(--c1, #8b7cf6)) 240deg,
+    transparent 295deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: calc(0.55 + var(--near, 0) * 0.3 + var(--hs, 0) * 0.15);
+  animation: rimspin 9s linear infinite;
+  animation-delay: calc(var(--ph, 0) * 1s);
+}
+
+@keyframes rimspin {
+  to {
+    --ra: 360deg;
+  }
+}
+
+/* the dark interior — window into the miniature world */
+.portal-scene {
+  position: absolute;
+  inset: 6px;
+  overflow: hidden;
+  border-radius: 46% 46% 10px 10px / 30% 30% 10px 10px;
+  background:
+    radial-gradient(120% 80% at 50% 12%, rgba(40, 34, 70, 0.9), transparent 60%),
+    radial-gradient(150% 100% at 50% 115%, #141226, #070610 75%);
+}
+
+/* cursor-positioned light inside the scene */
+.portal-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    55% 45% at calc(50% + var(--px, 0) * 28%) calc(42% + var(--py, 0) * 22%),
+    color-mix(in srgb, var(--c1, #8b7cf6) 20%, transparent),
+    transparent 72%
+  );
+  opacity: calc(0.25 + var(--near, 0) * 0.5 + var(--hs, 0) * 0.35);
+  pointer-events: none;
+}
+
+/* interior parallax planes — deeper planes move less */
+.pi {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pi-back {
+  transform: translate3d(
+    calc(var(--px, 0) * -3px),
+    calc(var(--py, 0) * -2px),
+    0
+  );
+}
+
+.pi-mid {
+  transform: translate3d(
+    calc(var(--px, 0) * -7px),
+    calc(var(--py, 0) * -5px),
+    0
+  );
+}
+
+.pi-fore {
+  transform: translate3d(
+    calc(var(--px, 0) * -12px),
+    calc(var(--py, 0) * -9px),
+    0
+  );
+}
+
+.pi svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pi-core {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 62%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--c2, #bfe0ff) 0%,
+    var(--c1, #4a9fff) 34%,
+    transparent 68%
+  );
+  opacity: 0.5;
+  filter: blur(1px);
+  animation: corePulse 5.5s ease-in-out infinite;
+}
+
+.pi-core-top {
+  top: 24%;
+  width: 48%;
+  opacity: 0.4;
+}
+
+@keyframes corePulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.42;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 0.62;
+  }
+}
+
+/* medical cross glyph */
+.pi-cross {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 15%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+
+.pi-cross::before,
+.pi-cross::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--c2, #bfe0ff);
+  border-radius: 1.5px;
+  box-shadow: 0 0 10px var(--c1, #4a9fff);
+}
+
+.pi-cross::before {
+  height: 22%;
+  top: 39%;
+}
+
+.pi-cross::after {
+  width: 22%;
+  left: 39%;
+}
+
+/* thin orbital ring inside the scene */
+.pi-ring {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 74%;
+  aspect-ratio: 1 / 0.42;
+  border: 1px solid color-mix(in srgb, var(--c1, #4a9fff) 45%, transparent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-16deg);
+}
+
+.pi-orb {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--c2, #bfe0ff);
+  box-shadow: 0 0 7px var(--c1, #4a9fff);
+  left: calc(16% + var(--i) * 15%);
+  top: calc(20% + var(--i) * 10%);
+  animation: orbFloat 6s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -1.4s);
+}
+
+@keyframes orbFloat {
+  from {
+    transform: translate(0, 0);
+    opacity: 0.4;
+  }
+  to {
+    transform: translate(8px, -14px);
+    opacity: 1;
+  }
+}
+
+/* steam rising, launch streaks, rocket flame */
+.pi-steam {
+  animation: steamRise 3.4s ease-in-out infinite;
+}
+
+@keyframes steamRise {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-9px);
+    opacity: 0.85;
+  }
+}
+
+.pi-streak {
+  animation: streakFly 2.6s ease-out infinite;
+}
+
+@keyframes streakFly {
+  0% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+}
+
+.pi-flame {
+  transform-origin: 60px 88px;
+  animation: flameFlick 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes flameFlick {
+  from {
+    transform: scaleY(0.8);
+  }
+  to {
+    transform: scaleY(1.15);
+  }
+}
+
+.pi-trail {
+  animation: trailRun 3.2s linear infinite;
+}
+
+@keyframes trailRun {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+/* bottom haze — interior depth cue */
+.pi-haze {
+  background: linear-gradient(
+    to top,
+    rgba(5, 4, 10, 0.85),
+    transparent 42%
+  );
+}
+
+/* light field beneath the gate */
+.portal-floor {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -7%;
+  height: 20%;
+  background: radial-gradient(
+    50% 90% at 50% 0%,
+    var(--c1, #8b7cf6),
+    transparent 72%
+  );
+  opacity: calc(0.16 + var(--near, 0) * 0.18 + var(--hs, 0) * 0.2);
+  filter: blur(9px);
+  pointer-events: none;
+}
+
+.portal-name {
+  display: block;
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-mist);
+  transition: color 0.35s ease;
+}
+
+.portal-desc {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  color: var(--color-mist);
+  opacity: 0;
+  transform: translateY(5px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.portal:hover,
+.portal:focus-visible {
+  --hs: 1;
+}
+
+.portal:hover .portal-name,
+.portal:focus-visible .portal-name {
+  color: var(--color-paper);
+}
+
+.portal:hover .portal-desc,
+.portal:focus-visible .portal-desc {
+  opacity: 0.9;
+  transform: none;
+}
+
+.portal:focus-visible {
+  outline: none;
+}
+
+.portal:focus-visible .portal-gate {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 5px;
+}
+
+/* ------- expanded portal overlay ------- */
+
+.portal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.portal-overlay-bg {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(5, 4, 10, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  animation: fadeIn 0.35s ease;
+}
+
+.portal-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2.2rem 2.6rem 1.8rem;
+  border-radius: 20px;
+  border: 1px solid var(--color-line);
+  background: rgba(14, 11, 24, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: portalIn 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.1);
+}
+
+.portal-gate-lg {
+  width: min(15rem, 56vw);
+}
+
+.portal-card-name {
+  margin-top: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-paper);
+}
+
+.portal-card-desc {
+  font-size: 0.8rem;
+  color: var(--color-mist);
+}
+
+.portal-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.portal-close:hover,
+.portal-close:focus-visible {
+  border-color: var(--c1, var(--color-accent));
+  background: rgba(255, 255, 255, 0.09);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes portalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.82) translateY(24px);
+  }
+}
+
+/* ------- mobile: horizontal orbit strip ------- */
+
+@media (max-width: 639px) {
+  .portal-grid {
+    display: flex;
+    gap: 1.75rem;
+    max-width: none;
+    padding: 1rem 14vw 2.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .portal-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .portal-item {
+    flex: 0 0 60vw;
+    margin-top: 0;
+    scroll-snap-align: center;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .portal-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 34rem;
+  }
+
+  .portal-item {
+    margin-top: 0;
+  }
+
+  .portal-item:nth-child(even) {
+    margin-top: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-float,
+  .portal-rim::before,
+  .pi-core,
+  .pi-orb,
+  .pi-steam,
+  .pi-streak,
+  .pi-flame,
+  .pi-trail {
+    animation: none;
+  }
 }
 
 /* ------- custom cursor ------- */

@@ -130,7 +130,18 @@
       "E-commerce",
       "Secteur public",
       "Startups"
-    ]
+    ],
+    "descs": [
+      "Des soins qui trouvent leurs patients",
+      "Calme, clair, facile à joindre",
+      "La science, rendue visible",
+      "Des boutiques qui attirent",
+      "Des tables qui se réservent",
+      "Des boutiques pensées pour vendre",
+      "Des services que les citoyens trouvent",
+      "Des idées lancées fort"
+    ],
+    "close": "Fermer"
   },
   "contact": {
     "label": "08 — Contact",

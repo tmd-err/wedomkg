@@ -99,7 +99,7 @@ const SPECS: Spec[] = [
   {
     // process — bronze mechanical world with thin rings (movement)
     band: "process",
-    radius: 1.6,
+    radius: 1.3,
     seed: 31.4,
     tilt: 0.22,
     palette: {
@@ -110,7 +110,7 @@ const SPECS: Spec[] = [
     },
     ring: { color: "#c9a86a", inner: 1.5, outer: 1.9 },
     far: [12, -6, -44],
-    near: [3.9, -1.2, 2.4],
+    near: [5.2, -1.9, -8],
   },
   {
     // works — icy giant behind the project galaxy

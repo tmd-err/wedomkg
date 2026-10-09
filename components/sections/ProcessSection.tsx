@@ -14,35 +14,56 @@ type Dict = {
 export default function ProcessSection({ dict }: { dict: Dict }) {
   return (
     <section
-      className="section-pad relative flex min-h-[170vh] flex-col justify-center py-28"
+      className="section-pad relative flex min-h-[330vh] flex-col justify-center py-28"
       data-band="process"
     >
-      <div className="mb-16 max-w-3xl self-center text-center">
+      <div className="mb-[14vh] max-w-3xl self-center text-center">
         <SectionLabel>{dict.label}</SectionLabel>
         <h2 className="display mt-6 text-4xl sm:text-6xl" data-reveal="up">
           {dict.title}
         </h2>
       </div>
 
-      <ol className="grid gap-px border border-line bg-line sm:grid-cols-2">
+      {/* Tall editorial rows — scroll position maps each stage to a phase
+          of the golden signal in the scene (data-focus="process"). */}
+      <ol className="flex flex-col gap-[26vh]" data-focus="process">
         {dict.steps.map((step, i) => {
           const Icon = STEP_ICONS[i % STEP_ICONS.length];
           return (
             <li
               key={step.n}
-              className="flex flex-col gap-4 bg-ink p-8 sm:p-12"
-              data-rush={i % 2 === 0 ? "left" : "right"}
+              data-focus-row
+              className="flex min-h-[42vh] items-center"
             >
-              <div className="flex items-center justify-between">
-                <span className="display text-4xl text-accent sm:text-5xl">
-                  {step.n}
-                </span>
-                <Icon size={20} className="text-mist/70" aria-hidden="true" />
+              <div
+                className={`max-w-xl ${
+                  i % 2 === 0 ? "" : "sm:ml-auto sm:text-right"
+                }`}
+                data-reveal={i % 2 === 0 ? "left" : "right"}
+              >
+                <div
+                  className={`flex items-center gap-5 ${
+                    i % 2 === 0 ? "" : "sm:flex-row-reverse"
+                  }`}
+                >
+                  <span className="display text-5xl text-accent sm:text-6xl">
+                    {step.n}
+                  </span>
+                  <span className="inline-flex h-10 w-10 items-center justify-center border border-line text-mist/70">
+                    <Icon size={16} aria-hidden="true" />
+                  </span>
+                </div>
+                <h3 className="display mt-5 text-3xl sm:text-5xl">
+                  {step.title}
+                </h3>
+                <p
+                  className={`mt-5 max-w-md text-sm leading-relaxed text-mist sm:text-base ${
+                    i % 2 === 0 ? "" : "sm:ml-auto"
+                  }`}
+                >
+                  {step.desc}
+                </p>
               </div>
-              <h3 className="display text-2xl sm:text-3xl">{step.title}</h3>
-              <p className="max-w-xs text-sm leading-relaxed text-mist">
-                {step.desc}
-              </p>
             </li>
           );
         })}

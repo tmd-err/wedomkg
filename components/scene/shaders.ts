@@ -31,6 +31,33 @@ export function makeDotTexture(): THREE.Texture {
   return tex;
 }
 
+/** Linear streak (bright head end → transparent tail) for meteor/comet trails. */
+export function makeStreakTexture(): THREE.Texture {
+  const w = 256;
+  const h = 32;
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d")!;
+  const grad = ctx.createLinearGradient(0, 0, w, 0);
+  grad.addColorStop(0, "rgba(255,255,255,0)");
+  grad.addColorStop(0.55, "rgba(255,255,255,0.22)");
+  grad.addColorStop(0.9, "rgba(255,255,255,0.85)");
+  grad.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+  const vg = ctx.createLinearGradient(0, 0, 0, h);
+  vg.addColorStop(0, "rgba(0,0,0,1)");
+  vg.addColorStop(0.5, "rgba(0,0,0,0)");
+  vg.addColorStop(1, "rgba(0,0,0,1)");
+  ctx.globalCompositeOperation = "destination-out";
+  ctx.fillStyle = vg;
+  ctx.fillRect(0, 0, w, h);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
 /** Warm radial glow for sprites (sun halo, nebula cores). */
 export function makeGlowTexture(
   inner = "rgba(255,150,40,0.9)",

@@ -192,26 +192,6 @@ export default function Experience({ children, preloader }: Props) {
         );
       });
 
-      // Horizontal drift for industry word rows (alternating directions).
-      if (!reduced) {
-        gsap.utils.toArray<HTMLElement>("[data-shift]").forEach((el) => {
-          const dir = el.dataset.shift === "right" ? 1 : -1;
-          gsap.fromTo(
-            el,
-            { xPercent: 6 * dir },
-            {
-              xPercent: -6 * dir,
-              ease: "none",
-              scrollTrigger: {
-                trigger: el,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-              },
-            },
-          );
-        });
-      }
 
       // Active state on portfolio rows as they pass the centre.
       gsap.utils.toArray<HTMLElement>("[data-work-row]").forEach((el, i) => {
@@ -251,6 +231,7 @@ export default function Experience({ children, preloader }: Props) {
             const value = self.progress * rows - 0.5;
             if (kind === "services") sceneState.serviceFocus = value;
             if (kind === "works") sceneState.workFocus = value;
+            if (kind === "process") sceneState.processFocus = value;
           },
         });
       });

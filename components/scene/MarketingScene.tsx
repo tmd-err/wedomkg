@@ -11,6 +11,10 @@ import Destinations from "./Destinations";
 import Sun from "./Sun";
 import ProjectScreens from "./ProjectScreens";
 import TrustOrbit from "./TrustOrbit";
+import Meteor from "./Meteor";
+import Asteroids from "./Asteroids";
+import OrbitalJunk from "./OrbitalJunk";
+import ProcessJourney from "./ProcessJourney";
 
 export default function MarketingScene() {
   return (
@@ -38,6 +42,10 @@ export default function MarketingScene() {
           <Sun />
           <ProjectScreens />
           <TrustOrbit />
+          <Meteor />
+          <Asteroids />
+          <OrbitalJunk />
+          <ProcessJourney />
         </Suspense>
       </Canvas>
     </div>
