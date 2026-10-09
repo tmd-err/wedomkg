@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "title": "We Do Marketing — Grandissons ensemble",
+    "description": "We Do Marketing est une agence de marketing de A à Z : réseaux sociaux, création de sites web et SEO, publicité en ligne et marketing d'influence. Vous gérez votre entreprise, nous construisons l'attention autour."
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "works": "Réalisations",
+    "contact": "Contact",
+    "cta": "Démarrer un projet"
+  },
+  "language": {
+    "label": "Langue"
+  },
+  "preloader": {
+    "brand": "WE DO MARKETING",
+    "status": "Mise en mouvement"
+  },
+  "hero": {
+    "kicker": "Agence de marketing",
+    "title": "Grandissons ensemble.",
+    "subtitle": "Vous gérez l'entreprise. Nous construisons l'attention autour.",
+    "ctaPrimary": "Parlons-en",
+    "ctaSecondary": "Voir le travail",
+    "scroll": "Défiler"
+  },
+  "intro": {
+    "label": "01 — Le point de départ",
+    "title": "Une bonne entreprise mérite d'être vue.",
+    "body": "Votre offre a déjà de la valeur. Le marketing est le système qui relie cette valeur aux personnes qui la cherchent. Quand l'attention se met en mouvement, tout le reste suit.",
+    "imgAlt": "Un chemin de lumière gravissant le sommet vers de vrais résultats — l'ascension We Do Marketing",
+    "imgZoom": "Agrandir l'image"
+  },
+  "about": {
+    "label": "02 — Qui sommes-nous",
+    "title": "Le marketing doit faire bouger quelque chose.",
+    "body": "We Do Marketing accompagne aussi bien les jeunes startups que les grandes entreprises — cabinets médicaux, cliniques privées, pharma, commerces, restaurants, e-commerce et organisations publiques. Une seule équipe, de A à Z : stratégie, web, référencement, social, vidéo et consulting.",
+    "points": [
+      "Des startups aux grandes entreprises",
+      "Chaque secteur que nous touchons, nous l'apprenons",
+      "De la stratégie à l'exécution, sous un même toit"
+    ],
+    "imgAlt": "Le studio We Do Marketing — stratégie, contenu, publicité et croissance sur un même bureau",
+    "imgZoom": "Agrandir l'image"
+  },
+  "services": {
+    "label": "03 — Services",
+    "title": "Un seul objectif : plus de momentum.",
+    "intro": "Quatre disciplines, un seul système. Chaque service nourrit les autres — l'attention se cumule.",
+    "imgAlt": "Les disciplines We Do Marketing — social, publicité, SEO, web, influence et consulting — reliées en un seul système ascendant",
+    "imgZoom": "Agrandir l'image",
+    "items": [
+      {
+        "id": "social",
+        "title": "Gestion des réseaux sociaux",
+        "desc": "Comptes, contenus et campagnes construits autour de vos objectifs — gérés avec vous, jamais à distance.",
+        "imgAlt": "Gestion des réseaux sociaux — portée, contenu et métriques de croissance autour d'un téléphone",
+        "tags": ["Contenu", "Communauté", "Campagnes"]
+      },
+      {
+        "id": "web",
+        "title": "Création de sites web / SEO",
+        "desc": "Des sites responsive pour l'e-commerce, les portfolios et les blogs — pensés pour être trouvés et pour convertir.",
+        "imgAlt": "Création de sites web et SEO — un site moderne et responsive avec une vraie visibilité",
+        "tags": ["Design", "SEO", "E-commerce"]
+      },
+      {
+        "id": "ads",
+        "title": "Publicité en ligne",
+        "desc": "Des campagnes pilotées par la donnée sur Google, Facebook, Instagram, TikTok et YouTube — calibrées sur votre audience, vos objectifs et votre budget.",
+        "imgAlt": "Publicité en ligne — performance des campagnes sur Google, Meta, TikTok et YouTube",
+        "tags": ["Google", "Meta", "TikTok", "YouTube"]
+      },
+      {
+        "id": "influence",
+        "title": "Marketing d'influence",
+        "desc": "Des collaborations avec les voix que votre audience suit déjà — sur Instagram, TikTok, YouTube, les podcasts et les blogs.",
+        "imgAlt": "Marketing d'influence — créateurs et portée des campagnes sur les réseaux sociaux",
+        "tags": ["Créateurs", "Campagnes", "Portée"]
+      }
+    ]
+  },
+  "process": {
+    "label": "04 — Méthode",
+    "title": "Comment une idée devient un mouvement.",
+    "steps": [
+      {
+        "n": "01",
+        "title": "Comprendre",
+        "desc": "Votre métier, votre audience, vos chiffres. La stratégie commence par l'écoute."
+      },
+      {
+        "n": "02",
+        "title": "Créer",
+        "desc": "Sites, contenus, campagnes — conçus pour marquer, pas pour être zappés."
+      },
+      {
+        "n": "03",
+        "title": "Amplifier",
+        "desc": "Les canaux payants et organiques portent le travail là où vit réellement votre audience."
+      },
+      {
+        "n": "04",
+        "title": "Grandir",
+        "desc": "Mesurer, affiner, recommencer. La croissance est une boucle, pas un lancement."
+      }
+    ]
+  },
+  "works": {
+    "label": "05 — Réalisations",
+    "title": "Les idées se racontent facilement. Nous préférons montrer le travail.",
+    "visit": "Visiter le site"
+  },
+  "trust": {
+    "label": "06 — Confiance",
+    "title": "Ils nous confient les marques qu'ils ont construites.",
+    "body": "Boulangeries, cliniques, entreprises de BTP, e-commerce — des organisations nous confient leur visibilité. Nous le prenons personnellement."
+  },
+  "industries": {
+    "label": "07 — Secteurs",
+    "title": "Chaque secteur a son audience.",
+    "items": [
+      "Santé",
+      "Cliniques privées",
+      "Pharma",
+      "Commerce",
+      "Restauration",
+      "E-commerce",
+      "Secteur public",
+      "Startups"
+    ]
+  },
+  "contact": {
+    "label": "08 — Contact",
+    "title": "Vous avez quelque chose à faire grandir ?",
+    "titleLine2": "Construisons-le.",
+    "body": "Dites-nous où vous voulez aller. Nous tracerons le chemin.",
+    "cta": "Démarrer un projet"
+  },
+  "footer": {
+    "tagline": "Grandissons ensemble.",
+    "navLabel": "Menu",
+    "contactLabel": "Contact",
+    "visitLabel": "Nous trouver",
+    "visitLine": "Technopark — Rabat, Maroc",
+    "directions": "Itinéraire",
+    "mapTitle": "We Do Marketing — Technopark Rabat",
+    "rights": "© 2026 Wedomarketing. Tous droits réservés.",
+    "top": "Retour en haut"
+  },
+  "notFound": {
+    "title": "Cette page a quitté la trajectoire.",
+    "cta": "Retour à l'accueil"
+  }
+}

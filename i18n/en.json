@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "title": "We Do Marketing — We Grow Together",
+    "description": "We Do Marketing is an A-Z marketing agency: social media, web design & SEO, online advertising and influence marketing. You focus on the business, we build the attention around it."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "works": "Works",
+    "contact": "Contact",
+    "cta": "Start a project"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "preloader": {
+    "brand": "WE DO MARKETING",
+    "status": "Setting things in motion"
+  },
+  "hero": {
+    "kicker": "Marketing agency",
+    "title": "We grow together.",
+    "subtitle": "You focus on the business. We build the attention around it.",
+    "ctaPrimary": "Let's Talk",
+    "ctaSecondary": "See the work",
+    "scroll": "Scroll"
+  },
+  "intro": {
+    "label": "01 — The starting point",
+    "title": "Good businesses still need to be seen.",
+    "body": "Your offer already has value. Marketing is the system that connects that value to the people looking for it. When attention starts moving, everything else follows.",
+    "imgAlt": "A lit path climbing a summit toward real results — the We Do Marketing ascent",
+    "imgZoom": "Enlarge image"
+  },
+  "about": {
+    "label": "02 — Who we are",
+    "title": "Marketing should move something.",
+    "body": "We Do Marketing works with early-stage startups and large corporations alike — doctor offices, private hospitals, pharma, retailers, restaurants, e-commerce and government-affiliated organizations. One team, A to Z: strategy, web, search, social, video and consulting.",
+    "points": [
+      "From startups to corporations",
+      "Every industry we touch, we learn",
+      "Strategy to execution, under one roof"
+    ],
+    "imgAlt": "The We Do Marketing studio — strategy, content, ads and growth on one desk",
+    "imgZoom": "Enlarge image"
+  },
+  "services": {
+    "label": "03 — Services",
+    "title": "One goal. More momentum.",
+    "intro": "Four disciplines, one system. Each service feeds the others — attention compounds.",
+    "imgAlt": "The We Do Marketing disciplines — social, ads, SEO, web, influence and consulting — connected as one ascending system",
+    "imgZoom": "Enlarge image",
+    "items": [
+      {
+        "id": "social",
+        "title": "Social Media Management",
+        "desc": "Accounts, content and campaigns built around your goals — managed closely with you, never at a distance.",
+        "imgAlt": "Social media management — reach, content and growth metrics around a phone",
+        "tags": ["Content", "Community", "Campaigns"]
+      },
+      {
+        "id": "web",
+        "title": "Website Design / SEO",
+        "desc": "Responsive websites for e-commerce, portfolios and blogs — designed to be found and built to convert.",
+        "imgAlt": "Website design and SEO — a modern responsive site with search visibility",
+        "tags": ["Design", "SEO", "E-commerce"]
+      },
+      {
+        "id": "ads",
+        "title": "Online Advertising",
+        "desc": "Data-driven campaigns across Google, Facebook, Instagram, TikTok and YouTube — calibrated on your audience, your goals and your budget.",
+        "imgAlt": "Online advertising — campaign performance across Google, Meta, TikTok and YouTube",
+        "tags": ["Google", "Meta", "TikTok", "YouTube"]
+      },
+      {
+        "id": "influence",
+        "title": "Influence Marketing",
+        "desc": "Collaborations with the voices your audience already follows — across Instagram, TikTok, YouTube, podcasts and blogs.",
+        "imgAlt": "Influence marketing — creators and campaign reach across social platforms",
+        "tags": ["Creators", "Campaigns", "Reach"]
+      }
+    ]
+  },
+  "process": {
+    "label": "04 — Method",
+    "title": "How an idea becomes movement.",
+    "steps": [
+      {
+        "n": "01",
+        "title": "Understand",
+        "desc": "Your business, your audience, your numbers. Strategy starts with listening."
+      },
+      {
+        "n": "02",
+        "title": "Create",
+        "desc": "Websites, content, campaigns — made to be remembered, not scrolled past."
+      },
+      {
+        "n": "03",
+        "title": "Amplify",
+        "desc": "Paid and organic channels carry the work where your audience actually lives."
+      },
+      {
+        "n": "04",
+        "title": "Grow",
+        "desc": "Measure, refine, repeat. Growth is a loop, not a launch."
+      }
+    ]
+  },
+  "works": {
+    "label": "05 — Work",
+    "title": "Ideas are easy to talk about. We prefer showing the work.",
+    "visit": "Visit website"
+  },
+  "trust": {
+    "label": "06 — Trust",
+    "title": "They trust us with the brands they built.",
+    "body": "Bakeries, clinics, contractors, e-commerce — organizations hand us their visibility. We take that personally."
+  },
+  "industries": {
+    "label": "07 — Industries",
+    "title": "Every field has an audience.",
+    "items": [
+      "Healthcare",
+      "Private hospitals",
+      "Pharma",
+      "Retail",
+      "Restaurants",
+      "E-commerce",
+      "Government",
+      "Startups"
+    ]
+  },
+  "contact": {
+    "label": "08 — Contact",
+    "title": "Have something worth growing?",
+    "titleLine2": "Let's build it.",
+    "body": "Tell us where you want to be. We'll draw the path.",
+    "cta": "Start a project"
+  },
+  "footer": {
+    "tagline": "We grow together.",
+    "navLabel": "Menu",
+    "contactLabel": "Contact",
+    "visitLabel": "Find us",
+    "visitLine": "Technopark — Rabat, Morocco",
+    "directions": "Get directions",
+    "mapTitle": "We Do Marketing — Technopark Rabat",
+    "rights": "© 2026 Wedomarketing. All rights reserved.",
+    "top": "Back to top"
+  },
+  "notFound": {
+    "title": "This page drifted off the map.",
+    "cta": "Back to home"
+  }
+}
